@@ -45,7 +45,7 @@
 %%% Configuration: change the server_node() function to return the
 %%% name of the node where the messenger server runs
 
--module(messenger).
+-module(messenger2).
 -export([start_server/0, server/0, 
          logon/1, logoff/0, message/2, client/2]).
 
