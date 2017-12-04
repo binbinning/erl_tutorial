@@ -1,10 +1,12 @@
--module(tut17).
+-module(tut18).
 
--export([start_ping/1, start_pong/0,  ping/2, pong/0]).
+-export([start/1,  ping/2, pong/0]).
 
 %%
-%% distributed message passing using process name.
+%% distributed message passing 
+%%  start process in other node.
 %%
+
 ping(0, Pong_Node) ->
     {pong, Pong_Node} ! finished,
     io:format("ping finished~n", []);
@@ -27,8 +29,6 @@ pong() ->
             pong()
     end.
 
-start_pong() ->
-    register(pong, spawn(tut17, pong, [])).
-
-start_ping(Pong_Node) ->
-    spawn(tut17, ping, [3, Pong_Node]).
+start(Ping_Node) ->
+    register(pong, spawn(tut18, pong, [])),
+    spawn(Ping_Node, tut18, ping, [3, node()]).
